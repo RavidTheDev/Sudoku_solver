@@ -62,4 +62,4 @@ if solve(grid,0,0):
         print()
 
 else:
-    print("There is no solution for this sudoku ! ")
+    print("There is no solution for this sudoku !")
