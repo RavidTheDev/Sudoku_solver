@@ -1,3 +1,6 @@
+import time
+import pyautogui as pg
+
 def is_valid_move(grid, row, col, number):
     #Check if exists in the row
     for x in range(9):
@@ -42,24 +45,59 @@ def solve(grid, row, col):
 
 
 
-grid = [
+grid = []
+#
+# [4, 0, 0, 0, 0, 5, 0, 0, 0],
+# [0, 0, 0, 0, 0, 0, 1, 9, 8],
+# [3, 0, 0, 0, 8, 2, 4, 0, 0],
+# [0, 0, 0, 1, 0, 0, 0, 8, 0],
+# [9, 0, 3, 0, 0, 0, 0, 0, 0],
+# [0, 0, 0, 0, 3, 0, 6, 7, 0],
+# [0, 5, 0, 0, 0, 9, 0, 0, 0],
+# [0, 0, 0, 2, 0, 0, 9, 0, 7],
+# [6, 4, 0, 3, 0, 0, 0, 0, 0],
+# ]
 
-[4, 0, 0, 0, 0, 5, 0, 0, 0],
-[0, 0, 0, 0, 0, 0, 1, 9, 8],
-[3, 0, 0, 0, 8, 2, 4, 0, 0],
-[0, 0, 0, 1, 0, 0, 0, 8, 0],
-[9, 0, 3, 0, 0, 0, 0, 0, 0],
-[0, 0, 0, 0, 3, 0, 6, 7, 0],
-[0, 5, 0, 0, 0, 9, 0, 0, 0],
-[0, 0, 0, 2, 0, 0, 9, 0, 7],
-[6, 4, 0, 3, 0, 0, 0, 0, 0],
-]
 
-if solve(grid,0,0):
-    for i in range(9):
-        for j in range(9):
-            print(grid[i][j],end=" ")
-        print()
+def print_and_solve(grid):
+    if solve(grid,0,0):
+        for i in range(9):
+            for j in range(9):
+                print(grid[i][j],end=" ")
+            print()
+    str_grid=[]
 
-else:
-    print("There is no solution for this sudoku !")
+    for lists in grid:
+        for n in lists:
+            str_grid.append(str(n))
+
+
+    counter=[]
+    for number in str_grid:
+        pg.press(number)
+        pg.hotkey('right')
+        counter.append(number)
+        if len(counter)%9==0:
+            pg.hotkey('down')
+            for i in range(9):
+                pg.hotkey('left')
+
+
+    else:
+        print("There is no solution for this sudoku !")
+
+while True:
+
+    row=list(input('Row: '))
+    ints=[]
+    for num in row:
+        ints.append(int(num))
+    grid.append(ints)
+
+    if len(grid)==9:
+        break
+    print(f'Row {str(len(grid))} complete')
+
+time.sleep(3)
+
+print_and_solve(grid)
