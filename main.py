@@ -2,11 +2,11 @@ import time
 import pyautogui as pg
 
 def is_valid_move(grid, row, col, number):
-    #Check if exists in the row
+
     for x in range(9):
         if grid[row][x] == number:
             return False
-    # Check if exists in the column
+
     for x in range(9):
         if grid[x][col] == number:
             return False
